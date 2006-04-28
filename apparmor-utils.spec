@@ -1,4 +1,5 @@
 %include	/usr/lib/rpm/macros.perl
+%define		_vimdatadir	%{_datadir}/vim/vimfiles
 %define		_ver 2.0
 %define		_svnrel 6379
 Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profiles
@@ -22,6 +23,19 @@ This provides some useful programs to help create and manage AppArmor
 profiles. This package is part of a suite of tools that used to be
 named SubDomain.
 
+%package -n vim-syntax-apparmor
+Summary:	AppArmor files support for Vim
+Summary(pl):	Obs³uga plików AppArmor dla Vima
+Group:		Applications/Editors/Vim
+Requires:	%{name} = %{version}-%{release}
+Requires:	vim >= 4:6.3.058-3
+
+%description -n vim-syntax-apparmor
+AppArmor files support for Vim.
+
+%description -n vim-syntax-apparmor -l pl
+Obs³uga plików AppArmor dla Vima.
+
 %prep
 %setup -q -n %{name}-%{_ver}
 
@@ -34,6 +48,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %find_lang %{name}
 
+install -d $RPM_BUILD_ROOT%{_vimdatadir}/{syntax,ftdetect}
+install apparmor.vim $RPM_BUILD_ROOT%{_vimdatadir}/syntax
+
+cat > $RPM_BUILD_ROOT%{_vimdatadir}/ftdetect/apparmor.vim <<-EOF
+au BufNewFile,BufRead /etc/apparmor.d/*,/etc/apparmor/profiles/* set filetype=apparmor
+EOF
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -44,3 +65,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/*
 %{perl_vendorlib}/Immunix/*
 %dir /var/log/apparmor
+
+%files -n vim-syntax-apparmor
+%defattr(644,root,root,755)
+%{_vimdatadir}/ftdetect/*
+%{_vimdatadir}/syntax/*
