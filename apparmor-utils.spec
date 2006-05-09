@@ -3,6 +3,7 @@
 %define		_ver 2.0
 %define		_svnrel 6379
 Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profiles
+Summary(pl):	Narzêdzia przestrzeni u¿ytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
 Version:	%{_ver}.%{_svnrel}
 Release:	0.1
@@ -22,6 +23,11 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 This provides some useful programs to help create and manage AppArmor
 profiles. This package is part of a suite of tools that used to be
 named SubDomain.
+
+%description -l pl
+Ten pakiet dostarcza kilka przydatnych programów pomocnych przy
+tworzeniu i zarz±dzaniu profilami AppArmor. Ten pakiet jest czê¶ci±
+zestawu narzêdzi zwanych SubDomain.
 
 %package -n vim-syntax-apparmor
 Summary:	AppArmor files support for Vim
@@ -63,6 +69,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_sysconfdir}/apparmor
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apparmor/*
 %attr(755,root,root) %{_sbindir}/*
+%dir %{perl_vendorlib}/Immunix
 %{perl_vendorlib}/Immunix/*
 %dir /var/log/apparmor
 
