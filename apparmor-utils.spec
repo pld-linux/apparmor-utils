@@ -1,15 +1,15 @@
 %include	/usr/lib/rpm/macros.perl
 %define		_vimdatadir	%{_datadir}/vim/vimfiles
 %define		_ver 2.0
-%define		_svnrel 6379
+%define		_svnrel 128
 Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profiles
 Summary(pl):	Narzêdzia przestrzeni u¿ytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
 Version:	%{_ver}.%{_svnrel}
 Release:	0.1
 Group:		Base
-Source0:	http://forge.novell.com/modules/xfcontent/private.php/apparmor/Development%20-%20April%20Snapshot/%{name}-%{_ver}-%{_svnrel}.tar.gz
-# Source0-md5:	0144c81537fd724eaa6e23822edaaae1
+Source0:	http://forgeftp.novell.com/apparmor/Development%20-%20September%20snapshot/%{name}-%{_ver}-%{_svnrel}.tar.gz
+# Source0-md5:	41cd82d2eb788211c3cf1d7a52ef9d82
 License:	GPL
 URL:		http://forge.novell.com/modules/xfmod/project/?apparmor
 BuildRequires:	gettext-devel
