@@ -10,3 +10,14 @@ diff -urN apparmor-utils-2.0.org/genprof apparmor-utils-2.0/genprof
    } else {
      $logmark = last_audit_entry_time();
    }
+diff -urN apparmor-utils-2.0.org/logprof.conf apparmor-utils-2.0/logprof.conf
+--- apparmor-utils-2.0.org/logprof.conf	2006-09-28 20:37:30.000000000 +0200
++++ apparmor-utils-2.0/logprof.conf	2006-12-12 19:15:43.110454500 +0100
+@@ -13,6 +13,7 @@
+ [qualifiers]
+   # things will be painfully broken if bash has a profile
+   /bin/bash     = iu
++  /bin/ksh	= iu
+ 
+   # these programs can't function if they're confined
+   /bin/mount    = u
