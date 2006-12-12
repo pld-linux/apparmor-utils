@@ -11,6 +11,7 @@ Group:		Base
 Source0:	http://forgeftp.novell.com/apparmor/Development%20-%20October%20Snapshot/%{name}-%{_ver}-%{_svnrel}.tar.gz
 # Source0-md5:	b2447c84edc2df843b7bc4baa8a1eb2c
 Source1:	Ycp.pm
+Patch0:		%{name}-pld.patch
 License:	GPL
 URL:		http://forge.novell.com/modules/xfmod/project/?apparmor
 BuildRequires:	gettext-devel
@@ -44,6 +45,7 @@ Obs³uga plików AppArmor dla Vima.
 
 %prep
 %setup -q -n %{name}-%{_ver}
+%patch0 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
