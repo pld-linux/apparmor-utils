@@ -1,0 +1,12 @@
+diff -urN apparmor-utils-2.0.org/genprof apparmor-utils-2.0/genprof
+--- apparmor-utils-2.0.org/genprof	2006-09-28 20:37:30.000000000 +0200
++++ apparmor-utils-2.0/genprof	2006-12-12 14:06:11.893826000 +0100
+@@ -131,7 +131,7 @@
+     $logmark = `date | md5sum`;
+     chomp $logmark;
+     $logmark = $1 if $logmark =~ /^([0-9a-f]+)/;
+-    system("/bin/logger -p kern.warn 'GenProf: $logmark'");
++    system("/usr/bin/logger -p kern.warn 'GenProf: $logmark'");
+   } else {
+     $logmark = last_audit_entry_time();
+   }
