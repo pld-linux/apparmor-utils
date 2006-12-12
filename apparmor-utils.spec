@@ -1,15 +1,16 @@
 %include	/usr/lib/rpm/macros.perl
 %define		_vimdatadir	%{_datadir}/vim/vimfiles
 %define		_ver 2.0
-%define		_svnrel 128
+%define		_svnrel 142
 Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profiles
 Summary(pl):	Narzêdzia przestrzeni u¿ytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
 Version:	%{_ver}.%{_svnrel}
-Release:	0.1
+Release:	0.2
 Group:		Base
-Source0:	http://forgeftp.novell.com/apparmor/Development%20-%20September%20snapshot/%{name}-%{_ver}-%{_svnrel}.tar.gz
-# Source0-md5:	41cd82d2eb788211c3cf1d7a52ef9d82
+Source0:	http://forgeftp.novell.com/apparmor/Development%20-%20October%20Snapshot/%{name}-%{_ver}-%{_svnrel}.tar.gz
+# Source0-md5:	b2447c84edc2df843b7bc4baa8a1eb2c
+Source1:	Ycp.pm
 License:	GPL
 URL:		http://forge.novell.com/modules/xfmod/project/?apparmor
 BuildRequires:	gettext-devel
@@ -33,7 +34,6 @@ zestawu narzêdzi zwanych SubDomain.
 Summary:	AppArmor files support for Vim
 Summary(pl):	Obs³uga plików AppArmor dla Vima
 Group:		Applications/Editors/Vim
-Requires:	%{name} = %{version}-%{release}
 Requires:	vim >= 4:6.3.058-3
 
 %description -n vim-syntax-apparmor
@@ -56,6 +56,7 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_vimdatadir}/{syntax,ftdetect}
 install apparmor.vim $RPM_BUILD_ROOT%{_vimdatadir}/syntax
+install %{SOURCE1} $RPM_BUILD_ROOT%{perl_vendorlib}/Immunix
 
 cat > $RPM_BUILD_ROOT%{_vimdatadir}/ftdetect/apparmor.vim <<-EOF
 au BufNewFile,BufRead /etc/apparmor.d/*,/etc/apparmor/profiles/* set filetype=apparmor
