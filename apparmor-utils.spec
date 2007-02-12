@@ -3,7 +3,7 @@
 %define		_ver 2.0
 %define		_svnrel 142
 Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profiles
-Summary(pl.UTF-8):   Narzędzia przestrzeni użytkownika przydatne do tworzenia profili AppArmor
+Summary(pl.UTF-8):	Narzędzia przestrzeni użytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
 Version:	%{_ver}.%{_svnrel}
 Release:	0.2
@@ -33,7 +33,7 @@ zestawu narzędzi zwanych SubDomain.
 
 %package -n vim-syntax-apparmor
 Summary:	AppArmor files support for Vim
-Summary(pl.UTF-8):   Obsługa plików AppArmor dla Vima
+Summary(pl.UTF-8):	Obsługa plików AppArmor dla Vima
 Group:		Applications/Editors/Vim
 Requires:	vim >= 4:6.3.058-3
 
