@@ -6,7 +6,7 @@ Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profi
 Summary(pl.UTF-8):	Narzędzia przestrzeni użytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
 Version:	%{_ver}.%{_svnrel}
-Release:	0.2
+Release:	0.3
 Epoch:		1
 Group:		Base
 Source0:	http://forgeftp.novell.com/apparmor/Development%20-%20March%2007%20-%20SnapShot/%{name}-%{_ver}-%{_svnrel}.tar.gz
@@ -16,7 +16,7 @@ License:	GPL
 URL:		http://forge.novell.com/modules/xfmod/project/?apparmor
 BuildRequires:	gettext-devel
 BuildRequires:	rpm-perlprov
-Requires:	DBD-SQLite >= 1.08
+Requires:	perl-DBD-SQLite >= 1.08
 Provides:	subdomain-utils
 Obsoletes:	subdomain-utils
 BuildArch:	noarch
