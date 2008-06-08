@@ -36,7 +36,8 @@ zestawu narzędzi zwanych SubDomain.
 Summary:	AppArmor files support for Vim
 Summary(pl.UTF-8):	Obsługa plików AppArmor dla Vima
 Group:		Applications/Editors/Vim
-Requires:	vim >= 4:6.3.058-3
+# for _vimdatadir existence
+Requires:	vim-rt >= 4:6.3.058-3
 
 %description -n vim-syntax-apparmor
 AppArmor files support for Vim.
