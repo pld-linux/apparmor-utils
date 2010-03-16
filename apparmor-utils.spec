@@ -1,19 +1,17 @@
 %include	/usr/lib/rpm/macros.perl
 %define		_vimdatadir	%{_datadir}/vim/vimfiles
-%define		_ver 2.3
-%define		_svnrel 1269
 Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profiles
 Summary(pl.UTF-8):	Narzędzia przestrzeni użytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
-Version:	%{_ver}.%{_svnrel}
+Version:	2.5
 Release:	1
 Epoch:		1
 License:	GPL
 Group:		Base
-Source0:	http://forge.novell.com/modules/xfcontent/private.php/apparmor/AppArmor%202.3-Beta1/%{name}-%{_ver}-%{_svnrel}.tar.gz
-# Source0-md5:	8f1e86b10118400fd63be7e768ef4c12
+Source0:	http://kernel.org/pub/linux/security/apparmor/AppArmor-%{version}/AppArmor-%{version}.tgz
+# Source0-md5:	4a747d1a1f85cb272d55b52c7e8a4a02
 Source1:	Ycp.pm
-URL:		http://forge.novell.com/modules/xfmod/project/?apparmor
+URL:		http://apparmor.wiki.kernel.org/
 BuildRequires:	gettext-devel
 BuildRequires:	rpm-perlprov
 Requires:	perl-DBD-SQLite >= 1.08
@@ -46,16 +44,16 @@ AppArmor files support for Vim.
 Obsługa plików AppArmor dla Vima.
 
 %prep
-%setup -q -n %{name}-%{_ver}
+%setup -q -n AppArmor-%{version}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+cd utils
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	BINDIR=$RPM_BUILD_ROOT%{_sbindir} \
 	PERLDIR=$RPM_BUILD_ROOT%{perl_vendorlib}/Immunix
-
-%find_lang %{name}
 
 install -d $RPM_BUILD_ROOT%{_vimdatadir}/{syntax,ftdetect}
 install apparmor.vim $RPM_BUILD_ROOT%{_vimdatadir}/syntax
@@ -64,6 +62,10 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{perl_vendorlib}/Immunix
 cat > $RPM_BUILD_ROOT%{_vimdatadir}/ftdetect/apparmor.vim <<-EOF
 au BufNewFile,BufRead /etc/apparmor.d/*,/etc/apparmor/profiles/* set filetype=apparmor
 EOF
+
+cd ..
+
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
