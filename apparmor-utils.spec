@@ -4,7 +4,7 @@ Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profi
 Summary(pl.UTF-8):	Narzędzia przestrzeni użytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
 Version:	2.5
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL
 Group:		Base
@@ -19,6 +19,8 @@ Provides:	subdomain-utils
 Obsoletes:	subdomain-utils
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_noautoreq	'perl(ycp)'
 
 %description
 This provides some useful programs to help create and manage AppArmor
@@ -58,6 +60,8 @@ cd utils
 install -d $RPM_BUILD_ROOT%{_vimdatadir}/{syntax,ftdetect}
 install apparmor.vim $RPM_BUILD_ROOT%{_vimdatadir}/syntax
 install %{SOURCE1} $RPM_BUILD_ROOT%{perl_vendorlib}/Immunix
+
+mv $RPM_BUILD_ROOT%{_datadir}/locale/pt{_PT,}
 
 cat > $RPM_BUILD_ROOT%{_vimdatadir}/ftdetect/apparmor.vim <<-EOF
 au BufNewFile,BufRead /etc/apparmor.d/*,/etc/apparmor/profiles/* set filetype=apparmor
