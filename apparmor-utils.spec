@@ -3,13 +3,13 @@
 Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profiles
 Summary(pl.UTF-8):	Narzędzia przestrzeni użytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
-Version:	2.5
-Release:	3
+Version:	2.6.0
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		Base
-Source0:	http://kernel.org/pub/linux/security/apparmor/AppArmor-%{version}/AppArmor-%{version}.tgz
-# Source0-md5:	4a747d1a1f85cb272d55b52c7e8a4a02
+Source0:	http://launchpad.net/apparmor/2.6/%{version}/+download/apparmor-%{version}.tar.gz
+# Source0-md5:	3b4fb4186ac6440a03d8f2dcf188d4b4
 Source1:	Ycp.pm
 URL:		http://apparmor.wiki.kernel.org/
 BuildRequires:	gettext-devel
@@ -46,7 +46,7 @@ AppArmor files support for Vim.
 Obsługa plików AppArmor dla Vima.
 
 %prep
-%setup -q -n AppArmor-%{version}
+%setup -q -n apparmor-%{version}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -81,7 +81,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/*
 %dir %{perl_vendorlib}/Immunix
 %{perl_vendorlib}/Immunix/*
-%dir /var/log/apparmor
 %{_mandir}/man5/*
 %{_mandir}/man8/*
 
