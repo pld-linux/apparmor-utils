@@ -61,7 +61,8 @@ install -d $RPM_BUILD_ROOT%{_vimdatadir}/{syntax,ftdetect}
 install apparmor.vim $RPM_BUILD_ROOT%{_vimdatadir}/syntax
 install %{SOURCE1} $RPM_BUILD_ROOT%{perl_vendorlib}/Immunix
 
-rm -r $RPM_BUILD_ROOT%{_datadir}/locale/pt_PT
+# outdated version of pt
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/pt_PT
 
 cat > $RPM_BUILD_ROOT%{_vimdatadir}/ftdetect/apparmor.vim <<-EOF
 au BufNewFile,BufRead /etc/apparmor.d/*,/etc/apparmor/profiles/* set filetype=apparmor
@@ -77,14 +78,17 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %dir %{_sysconfdir}/apparmor
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apparmor/*
-%attr(755,root,root) %{_sbindir}/*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apparmor/*.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apparmor/severity.db
+%attr(755,root,root) %{_sbindir}/aa-*
+%attr(755,root,root) %{_sbindir}/apparmor_status
 %dir %{perl_vendorlib}/Immunix
-%{perl_vendorlib}/Immunix/*
-%{_mandir}/man5/*
-%{_mandir}/man8/*
+%{perl_vendorlib}/Immunix/*.pm
+%{_mandir}/man5/logprof.conf.5*
+%{_mandir}/man8/aa-*.8*
+%{_mandir}/man8/apparmor_status.8*
 
 %files -n vim-syntax-apparmor
 %defattr(644,root,root,755)
-%{_vimdatadir}/ftdetect/*
-%{_vimdatadir}/syntax/*
+%{_vimdatadir}/ftdetect/apparmor.vim
+%{_vimdatadir}/syntax/apparmor.vim
