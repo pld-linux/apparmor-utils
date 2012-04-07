@@ -6,7 +6,7 @@ Name:		apparmor-utils
 Version:	2.7.2
 Release:	1
 Epoch:		1
-License:	GPL
+License:	GPL v2
 Group:		Base
 Source0:	http://launchpad.net/apparmor/2.7/%{version}/+download/apparmor-%{version}.tar.gz
 # Source0-md5:	2863e85bdfdf9ee35b83db6721fed1f1
