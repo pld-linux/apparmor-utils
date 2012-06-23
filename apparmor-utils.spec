@@ -92,6 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/aa-easyprof
 %attr(755,root,root) %{_sbindir}/aa-*
 %attr(755,root,root) %{_sbindir}/apparmor_status
+%dir %{_datadir}/apparmor
 %{_datadir}/apparmor/easyprof
 %dir %{perl_vendorlib}/Immunix
 %{perl_vendorlib}/Immunix/*.pm
