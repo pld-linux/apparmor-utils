@@ -1,5 +1,3 @@
-# TODO:
-# 	- package easyprof
 %include	/usr/lib/rpm/macros.perl
 %define		_vimdatadir	%{_datadir}/vim/vimfiles
 Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profiles
@@ -15,6 +13,7 @@ Source0:	http://launchpad.net/apparmor/2.8/%{version}/+download/apparmor-%{versi
 Source1:	Ycp.pm
 URL:		http://apparmor.wiki.kernel.org/
 BuildRequires:	gettext-devel
+BuildRequires:	python
 BuildRequires:	rpm-perlprov
 Requires:	perl-DBD-SQLite >= 1.08
 Provides:	subdomain-utils
@@ -50,6 +49,8 @@ Obsługa plików AppArmor dla Vima.
 %prep
 %setup -q -n apparmor-%{version}
 
+%{__sed} -i -e '1s, */usr/bin/env python,/usr/bin/python,' utils/aa-easyprof
+
 %install
 rm -rf $RPM_BUILD_ROOT
 cd utils
@@ -57,20 +58,24 @@ cd utils
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	BINDIR=$RPM_BUILD_ROOT%{_sbindir} \
-	PERLDIR=$RPM_BUILD_ROOT%{perl_vendorlib}/Immunix
+	PERLDIR=$RPM_BUILD_ROOT%{perl_vendorlib}/Immunix \
+	VIM_INSTALL_PATH=$RPM_BUILD_ROOT%{_vimdatadir}/syntax
 
-install -d $RPM_BUILD_ROOT%{_vimdatadir}/{syntax,ftdetect}
-install vim/apparmor.vim $RPM_BUILD_ROOT%{_vimdatadir}/syntax
 install %{SOURCE1} $RPM_BUILD_ROOT%{perl_vendorlib}/Immunix
 
 # outdated version of pt
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/pt_PT
 
+install -d $RPM_BUILD_ROOT%{_vimdatadir}/ftdetect
 cat > $RPM_BUILD_ROOT%{_vimdatadir}/ftdetect/apparmor.vim <<-EOF
 au BufNewFile,BufRead /etc/apparmor.d/*,/etc/apparmor/profiles/* set filetype=apparmor
 EOF
 
 cd ..
+
+# only .pyc are created on install
+%py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}/apparmor
+%py_postclean
 
 %find_lang %{name}
 
@@ -80,12 +85,19 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %dir %{_sysconfdir}/apparmor
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apparmor/*.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apparmor/easyprof.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apparmor/logprof.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apparmor/notify.conf
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apparmor/severity.db
+%attr(755,root,root) %{_bindir}/aa-easyprof
 %attr(755,root,root) %{_sbindir}/aa-*
 %attr(755,root,root) %{_sbindir}/apparmor_status
+%{_datadir}/apparmor/easyprof
 %dir %{perl_vendorlib}/Immunix
 %{perl_vendorlib}/Immunix/*.pm
+%dir %{py_sitescriptdir}/apparmor
+%{py_sitescriptdir}/apparmor/*.py[co]
+%{py_sitescriptdir}/apparmor-%{version}-py*.egg-info
 %{_mandir}/man5/logprof.conf.5*
 %{_mandir}/man8/aa-*.8*
 %{_mandir}/man8/apparmor_status.8*
