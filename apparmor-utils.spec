@@ -1,27 +1,22 @@
-%include	/usr/lib/rpm/macros.perl
-%define		_vimdatadir	%{_datadir}/vim/vimfiles
 Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profiles
 Summary(pl.UTF-8):	Narzędzia przestrzeni użytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
-Version:	2.8.3
+Version:	2.9.0
 Release:	1
 Epoch:		1
 License:	GPL v2
 Group:		Base
-Source0:	http://launchpad.net/apparmor/2.8/%{version}/+download/apparmor-%{version}.tar.gz
-# Source0-md5:	43586e5096606e857fef45c49553e468
-Source1:	Ycp.pm
+Source0:	http://launchpad.net/apparmor/2.9/%{version}/+download/apparmor-%{version}.tar.gz
+# Source0-md5:	daaeb859452f793abfdafd33f88d3e90
 URL:		http://apparmor.wiki.kernel.org/
 BuildRequires:	gettext-devel
 BuildRequires:	python
-BuildRequires:	rpm-perlprov
-Requires:	perl-DBD-SQLite >= 1.08
 Provides:	subdomain-utils
 Obsoletes:	subdomain-utils
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_noautoreq	'perl(ycp)'
+%define		_vimdatadir	%{_datadir}/vim/vimfiles
 
 %description
 This provides some useful programs to help create and manage AppArmor
@@ -49,7 +44,7 @@ Obsługa plików AppArmor dla Vima.
 %prep
 %setup -q -n apparmor-%{version}
 
-%{__sed} -i -e '1s, */usr/bin/env python,/usr/bin/python,' utils/aa-easyprof
+%{__sed} -i -e '1s, */usr/bin/env python,/usr/bin/python,' utils/aa-*
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -58,13 +53,7 @@ cd utils
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	BINDIR=$RPM_BUILD_ROOT%{_sbindir} \
-	PERLDIR=$RPM_BUILD_ROOT%{perl_vendorlib}/Immunix \
 	VIM_INSTALL_PATH=$RPM_BUILD_ROOT%{_vimdatadir}/syntax
-
-install %{SOURCE1} $RPM_BUILD_ROOT%{perl_vendorlib}/Immunix
-
-# outdated version of pt
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/pt_PT
 
 install -d $RPM_BUILD_ROOT%{_vimdatadir}/ftdetect
 cat > $RPM_BUILD_ROOT%{_vimdatadir}/ftdetect/apparmor.vim <<-EOF
@@ -94,8 +83,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/apparmor_status
 %dir %{_datadir}/apparmor
 %{_datadir}/apparmor/easyprof
-%dir %{perl_vendorlib}/Immunix
-%{perl_vendorlib}/Immunix/*.pm
 %dir %{py_sitescriptdir}/apparmor
 %{py_sitescriptdir}/apparmor/*.py[co]
 %{py_sitescriptdir}/apparmor-%{version}-py*.egg-info
@@ -107,3 +94,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_vimdatadir}/ftdetect/apparmor.vim
 %{_vimdatadir}/syntax/apparmor.vim
+%{_mandir}/man5/apparmor.vim.5*
