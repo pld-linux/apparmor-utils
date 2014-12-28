@@ -9,7 +9,7 @@ Group:		Base
 Source0:	http://launchpad.net/apparmor/2.9/%{version}/+download/apparmor-%{version}.tar.gz
 # Source0-md5:	daaeb859452f793abfdafd33f88d3e90
 URL:		http://apparmor.wiki.kernel.org/
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	python
 Provides:	subdomain-utils
 Obsoletes:	subdomain-utils
