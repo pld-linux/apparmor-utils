@@ -2,7 +2,7 @@ Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profi
 Summary(pl.UTF-8):	Narzędzia przestrzeni użytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
 Version:	2.9.2
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL v2
 Group:		Base
@@ -11,6 +11,7 @@ Source0:	http://launchpad.net/apparmor/2.9/%{version}/+download/apparmor-%{versi
 URL:		http://apparmor.wiki.kernel.org/
 BuildRequires:	gettext-tools
 BuildRequires:	python
+Requires:	python-LibAppArmor
 Provides:	subdomain-utils
 Obsoletes:	subdomain-utils
 BuildArch:	noarch
