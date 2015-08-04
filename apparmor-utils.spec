@@ -1,8 +1,11 @@
+
+%bcond_with	python3	# use Python 3 instead of Python 2
+
 Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profiles
 Summary(pl.UTF-8):	Narzędzia przestrzeni użytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
 Version:	2.9.2
-Release:	3
+Release:	4
 Epoch:		1
 License:	GPL v2
 Group:		Base
@@ -10,8 +13,13 @@ Source0:	http://launchpad.net/apparmor/2.9/%{version}/+download/apparmor-%{versi
 # Source0-md5:	3af6ef84881016bf8d9100f3f8ab036b
 URL:		http://apparmor.wiki.kernel.org/
 BuildRequires:	gettext-tools
+%if %{with python3}
+BuildRequires:	python3
+Requires:	python3-LibAppArmor
+%else
 BuildRequires:	python
 Requires:	python-LibAppArmor
+%endif
 Requires:	perl-LibAppArmor
 Provides:	subdomain-utils
 Obsoletes:	subdomain-utils
@@ -46,13 +54,22 @@ Obsługa plików AppArmor dla Vima.
 %prep
 %setup -q -n apparmor-%{version}
 
-%{__sed} -i -e '1s, */usr/bin/env python,/usr/bin/python,' utils/aa-*
+%if %{with python3}
+%{__sed} -i -e '1s, */usr/bin/env python,%{__python3},' utils/aa-*
+%else
+%{__sed} -i -e '1s, */usr/bin/env python,%{__python},' utils/aa-*
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 cd utils
 
 %{__make} install \
+%if %{with python3}
+	PYTHON="%{__python3}" \
+%else
+	PYTHON="%{__python}" \
+%endif
 	DESTDIR=$RPM_BUILD_ROOT \
 	BINDIR=$RPM_BUILD_ROOT%{_sbindir} \
 	VIM_INSTALL_PATH=$RPM_BUILD_ROOT%{_vimdatadir}/syntax
@@ -65,8 +82,12 @@ EOF
 cd ..
 
 # only .pyc are created on install
+%if %{with python3}
+%py3_ocomp $RPM_BUILD_ROOT%{py3_sitescriptdir}/apparmor
+%else
 %py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}/apparmor
 %py_postclean
+%endif
 
 %find_lang %{name}
 
@@ -85,9 +106,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/apparmor_status
 %dir %{_datadir}/apparmor
 %{_datadir}/apparmor/easyprof
+%if %{with python3}
+%{py3_sitescriptdir}/apparmor
+%{py3_sitescriptdir}/apparmor-%{version}-py*.egg-info
+%else
 %dir %{py_sitescriptdir}/apparmor
 %{py_sitescriptdir}/apparmor/*.py[co]
 %{py_sitescriptdir}/apparmor-%{version}-py*.egg-info
+%endif
 %{_mandir}/man5/logprof.conf.5*
 %{_mandir}/man8/aa-*.8*
 %{_mandir}/man8/apparmor_status.8*
