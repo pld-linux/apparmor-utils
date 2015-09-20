@@ -4,13 +4,13 @@
 Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profiles
 Summary(pl.UTF-8):	Narzędzia przestrzeni użytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
-Version:	2.9.2
-Release:	4
+Version:	2.10
+Release:	1
 Epoch:		1
 License:	GPL v2
 Group:		Base
-Source0:	http://launchpad.net/apparmor/2.9/%{version}/+download/apparmor-%{version}.tar.gz
-# Source0-md5:	3af6ef84881016bf8d9100f3f8ab036b
+Source0:	http://launchpad.net/apparmor/2.10/%{version}/+download/apparmor-%{version}.tar.gz
+# Source0-md5:	9fd9b6b3525882fdb9441d0f0a8f9162
 URL:		http://apparmor.wiki.kernel.org/
 BuildRequires:	gettext-tools
 %if %{with python3}
@@ -112,6 +112,8 @@ rm -rf $RPM_BUILD_ROOT
 %else
 %dir %{py_sitescriptdir}/apparmor
 %{py_sitescriptdir}/apparmor/*.py[co]
+%dir %{py_sitescriptdir}/apparmor/rule
+%{py_sitescriptdir}/apparmor/rule/*.py[co]
 %{py_sitescriptdir}/apparmor-%{version}-py*.egg-info
 %endif
 %{_mandir}/man5/logprof.conf.5*
