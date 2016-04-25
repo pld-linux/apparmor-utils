@@ -4,13 +4,13 @@
 Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profiles
 Summary(pl.UTF-8):	Narzędzia przestrzeni użytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
-Version:	2.10
+Version:	2.10.1
 Release:	1
 Epoch:		1
 License:	GPL v2
 Group:		Base
 Source0:	http://launchpad.net/apparmor/2.10/%{version}/+download/apparmor-%{version}.tar.gz
-# Source0-md5:	9fd9b6b3525882fdb9441d0f0a8f9162
+# Source0-md5:	c9d82e04d699b0530b12dec15136027d
 URL:		http://wiki.apparmor.net/
 BuildRequires:	gettext-tools
 %if %{with python3}
@@ -107,14 +107,14 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/apparmor
 %{_datadir}/apparmor/easyprof
 %if %{with python3}
-%{py3_sitescriptdir}/apparmor
-%{py3_sitescriptdir}/apparmor-%{version}-py*.egg-info
+%{py3_sitedir}/apparmor
+%{py3_sitedir}/apparmor-%{version}-py*.egg-info
 %else
-%dir %{py_sitescriptdir}/apparmor
-%{py_sitescriptdir}/apparmor/*.py[co]
-%dir %{py_sitescriptdir}/apparmor/rule
-%{py_sitescriptdir}/apparmor/rule/*.py[co]
-%{py_sitescriptdir}/apparmor-%{version}-py*.egg-info
+%dir %{py_sitedir}/apparmor
+%{py_sitedir}/apparmor/*.py[co]
+%dir %{py_sitedir}/apparmor/rule
+%{py_sitedir}/apparmor/rule/*.py[co]
+%{py_sitedir}/apparmor-%{version}-py*.egg-info
 %endif
 %{_mandir}/man5/logprof.conf.5*
 %{_mandir}/man8/aa-*.8*
