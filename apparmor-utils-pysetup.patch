@@ -1,0 +1,11 @@
+--- apparmor-2.10.1/utils/Makefile.orig	2015-11-18 21:29:25.000000000 +0100
++++ apparmor-2.10.1/utils/Makefile	2016-04-26 18:56:36.173658050 +0200
+@@ -57,7 +57,7 @@
+ 	$(MAKE) install_manpages DESTDIR=${DESTDIR}
+ 	$(MAKE) -C vim install DESTDIR=${DESTDIR}
+ 	ln -sf aa-status.8 ${DESTDIR}/${MANDIR}/man8/apparmor_status.8
+-	${PYTHON} ${PYSETUP} install --prefix=${PYPREFIX} --root=${DESTDIR} --version=${VERSION}
++	${PYTHON} ${PYSETUP} install --prefix=${PYPREFIX} --root=${DESTDIR} $(PYSETUP_INSTALL_ARGS) --version=${VERSION}
+ 
+ .PHONY: clean
+ ifndef VERBOSE

@@ -1,4 +1,5 @@
-
+#
+# Conditional build:
 %bcond_with	python3	# use Python 3 instead of Python 2
 
 Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profiles
@@ -11,6 +12,7 @@ License:	GPL v2
 Group:		Base
 Source0:	http://launchpad.net/apparmor/2.10/%{version}/+download/apparmor-%{version}.tar.gz
 # Source0-md5:	c9d82e04d699b0530b12dec15136027d
+Patch0:		%{name}-pysetup.patch
 URL:		http://wiki.apparmor.net/
 BuildRequires:	gettext-tools
 %if %{with python3}
@@ -53,6 +55,7 @@ Obsługa plików AppArmor dla Vima.
 
 %prep
 %setup -q -n apparmor-%{version}
+%patch0 -p1
 
 %if %{with python3}
 %{__sed} -i -e '1s, */usr/bin/env python,%{__python3},' utils/aa-*
@@ -67,8 +70,10 @@ cd utils
 %{__make} install \
 %if %{with python3}
 	PYTHON="%{__python3}" \
+	PYSETUP_INSTALL_ARGS="--install-purelib=%{py3_sitescriptdir}" \
 %else
 	PYTHON="%{__python}" \
+	PYSETUP_INSTALL_ARGS="--install-purelib=%{py_sitescriptdir}" \
 %endif
 	DESTDIR=$RPM_BUILD_ROOT \
 	BINDIR=$RPM_BUILD_ROOT%{_sbindir} \
@@ -107,14 +112,14 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/apparmor
 %{_datadir}/apparmor/easyprof
 %if %{with python3}
-%{py3_sitedir}/apparmor
-%{py3_sitedir}/apparmor-%{version}-py*.egg-info
+%{py3_sitescriptdir}/apparmor
+%{py3_sitescriptdir}/apparmor-%{version}-py*.egg-info
 %else
-%dir %{py_sitedir}/apparmor
-%{py_sitedir}/apparmor/*.py[co]
-%dir %{py_sitedir}/apparmor/rule
-%{py_sitedir}/apparmor/rule/*.py[co]
-%{py_sitedir}/apparmor-%{version}-py*.egg-info
+%dir %{py_sitescriptdir}/apparmor
+%{py_sitescriptdir}/apparmor/*.py[co]
+%dir %{py_sitescriptdir}/apparmor/rule
+%{py_sitescriptdir}/apparmor/rule/*.py[co]
+%{py_sitescriptdir}/apparmor-%{version}-py*.egg-info
 %endif
 %{_mandir}/man5/logprof.conf.5*
 %{_mandir}/man8/aa-*.8*
