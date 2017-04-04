@@ -6,7 +6,7 @@ Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profi
 Summary(pl.UTF-8):	Narzędzia przestrzeni użytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
 Version:	2.11.0
-Release:	2
+Release:	3
 Epoch:		1
 License:	GPL v2
 Group:		Base
@@ -22,7 +22,7 @@ Requires:	python3-LibAppArmor
 BuildRequires:	python
 Requires:	python-LibAppArmor
 %endif
-Requires:	apparmor-binutils >= %{epoch}:%{version}
+Requires:	apparmor-binutils >= %{version}
 Requires:	perl-LibAppArmor
 Provides:	subdomain-utils
 Obsoletes:	subdomain-utils
