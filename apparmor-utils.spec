@@ -5,13 +5,13 @@
 Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profiles
 Summary(pl.UTF-8):	Narzędzia przestrzeni użytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
-Version:	2.12
+Version:	2.13
 Release:	1
 Epoch:		1
 License:	GPL v2
 Group:		Base
-Source0:	http://launchpad.net/apparmor/2.12/%{version}.0/+download/apparmor-%{version}.tar.gz
-# Source0-md5:	49054f58042f8e51ea92cc866575a833
+Source0:	http://launchpad.net/apparmor/2.13/%{version}.0/+download/apparmor-%{version}.tar.gz
+# Source0-md5:	c6caefb0a558492082226c467f6954cb
 Patch0:		%{name}-pysetup.patch
 URL:		http://wiki.apparmor.net/
 BuildRequires:	gettext-tools
@@ -66,15 +66,14 @@ Obsługa plików AppArmor dla Vima.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd utils
 
-%{__make} install \
+%{__make} -C utils install \
 %if %{with python3}
 	PYTHON="%{__python3}" \
-	PYSETUP_INSTALL_ARGS="--install-purelib=%{py3_sitescriptdir}" \
+	PYSETUP_INSTALL_ARGS="--install-purelib=%{py3_sitescriptdir} --optimize=2" \
 %else
 	PYTHON="%{__python}" \
-	PYSETUP_INSTALL_ARGS="--install-purelib=%{py_sitescriptdir}" \
+	PYSETUP_INSTALL_ARGS="--install-purelib=%{py_sitescriptdir} --optimize=2" \
 %endif
 	DESTDIR=$RPM_BUILD_ROOT \
 	BINDIR=$RPM_BUILD_ROOT%{_sbindir} \
@@ -85,13 +84,7 @@ cat > $RPM_BUILD_ROOT%{_vimdatadir}/ftdetect/apparmor.vim <<-EOF
 au BufNewFile,BufRead /etc/apparmor.d/*,/etc/apparmor/profiles/* set filetype=apparmor
 EOF
 
-cd ..
-
-# only .pyc are created on install
-%if %{with python3}
-%py3_ocomp $RPM_BUILD_ROOT%{py3_sitescriptdir}/apparmor
-%else
-%py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}/apparmor
+%if %{without python3}
 %py_postclean
 %endif
 
@@ -108,7 +101,20 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apparmor/notify.conf
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apparmor/severity.db
 %attr(755,root,root) %{_bindir}/aa-easyprof
-%attr(755,root,root) %{_sbindir}/aa-*
+%attr(755,root,root) %{_sbindir}/aa-audit
+%attr(755,root,root) %{_sbindir}/aa-autodep
+%attr(755,root,root) %{_sbindir}/aa-cleanprof
+%attr(755,root,root) %{_sbindir}/aa-complain
+%attr(755,root,root) %{_sbindir}/aa-decode
+%attr(755,root,root) %{_sbindir}/aa-disable
+%attr(755,root,root) %{_sbindir}/aa-enforce
+%attr(755,root,root) %{_sbindir}/aa-genprof
+%attr(755,root,root) %{_sbindir}/aa-logprof
+%attr(755,root,root) %{_sbindir}/aa-mergeprof
+%attr(755,root,root) %{_sbindir}/aa-notify
+%attr(755,root,root) %{_sbindir}/aa-remove-unknown
+%attr(755,root,root) %{_sbindir}/aa-status
+%attr(755,root,root) %{_sbindir}/aa-unconfined
 %attr(755,root,root) %{_sbindir}/apparmor_status
 %dir %{_datadir}/apparmor
 %{_datadir}/apparmor/easyprof
@@ -123,7 +129,21 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitescriptdir}/apparmor-%{version}-py*.egg-info
 %endif
 %{_mandir}/man5/logprof.conf.5*
-%{_mandir}/man8/aa-*.8*
+%{_mandir}/man8/aa-audit.8*
+%{_mandir}/man8/aa-autodep.8*
+%{_mandir}/man8/aa-cleanprof.8*
+%{_mandir}/man8/aa-complain.8*
+%{_mandir}/man8/aa-decode.8*
+%{_mandir}/man8/aa-disable.8*
+%{_mandir}/man8/aa-easyprof.8*
+%{_mandir}/man8/aa-enforce.8*
+%{_mandir}/man8/aa-genprof.8*
+%{_mandir}/man8/aa-logprof.8*
+%{_mandir}/man8/aa-mergeprof.8*
+%{_mandir}/man8/aa-notify.8*
+%{_mandir}/man8/aa-remove-unknown.8*
+%{_mandir}/man8/aa-status.8*
+%{_mandir}/man8/aa-unconfined.8*
 %{_mandir}/man8/apparmor_status.8*
 
 %files -n vim-syntax-apparmor
