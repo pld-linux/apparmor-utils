@@ -5,13 +5,13 @@
 Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profiles
 Summary(pl.UTF-8):	Narzędzia przestrzeni użytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
-Version:	2.13
+Version:	2.13.2
 Release:	1
 Epoch:		1
 License:	GPL v2
 Group:		Base
-Source0:	http://launchpad.net/apparmor/2.13/%{version}.0/+download/apparmor-%{version}.tar.gz
-# Source0-md5:	c6caefb0a558492082226c467f6954cb
+Source0:	http://launchpad.net/apparmor/2.13/%{version}/+download/apparmor-%{version}.tar.gz
+# Source0-md5:	2439b35266b5a3a461b0a2dba6e863c3
 Patch0:		%{name}-pysetup.patch
 URL:		http://wiki.apparmor.net/
 BuildRequires:	gettext-tools
