@@ -12,11 +12,11 @@ Patch0:		%{name}-pysetup.patch
 URL:		http://wiki.apparmor.net/
 BuildRequires:	gettext-tools
 BuildRequires:	python3
-Requires:	python3-LibAppArmor
 Requires:	apparmor-binutils >= %{version}
 Requires:	perl-LibAppArmor
+Requires:	python3-LibAppArmor
 Provides:	subdomain-utils
-Obsoletes:	subdomain-utils
+Obsoletes:	subdomain-utils < 2
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
