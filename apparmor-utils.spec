@@ -2,7 +2,7 @@ Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profi
 Summary(pl.UTF-8):	Narzędzia przestrzeni użytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
 Version:	4.0.3
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL v2
 Group:		Base
