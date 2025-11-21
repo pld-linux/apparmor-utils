@@ -1,13 +1,13 @@
 Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profiles
 Summary(pl.UTF-8):	Narzędzia przestrzeni użytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
-Version:	4.0.3
-Release:	2
+Version:	4.1.0
+Release:	1
 Epoch:		1
 License:	GPL v2
 Group:		Base
-Source0:	https://launchpad.net/apparmor/4.0/%{version}/+download/apparmor-%{version}.tar.gz
-# Source0-md5:	d581e358c470cb14f98cb838910ddf9e
+Source0:	https://launchpad.net/apparmor/4.1/%{version}/+download/apparmor-%{version}.tar.gz
+# Source0-md5:	a7b85f6de1fc72d2a73da80722c5538e
 Patch0:		%{name}-pysetup.patch
 URL:		https://wiki.apparmor.net/
 BuildRequires:	gettext-tools
@@ -75,6 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %dir %{_sysconfdir}/apparmor
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apparmor/easyprof.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apparmor/default_unconfined.template
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apparmor/logprof.conf
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apparmor/notify.conf
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apparmor/severity.db
@@ -94,6 +95,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/aa-unconfined
 %dir %{_datadir}/apparmor
 %{_datadir}/apparmor/easyprof
+%{_datadir}/polkit-1/actions/net.apparmor.pkexec.aa-notify.policy
 %{py3_sitescriptdir}/apparmor
 %{py3_sitescriptdir}/apparmor-%{version}-py*.egg-info
 %{_mandir}/man5/logprof.conf.5*
