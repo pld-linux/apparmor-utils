@@ -1,13 +1,13 @@
 Summary:	AppArmor userlevel utilities that are useful in creating AppArmor profiles
 Summary(pl.UTF-8):	Narzędzia przestrzeni użytkownika przydatne do tworzenia profili AppArmor
 Name:		apparmor-utils
-Version:	4.1.0
+Version:	4.1.8
 Release:	1
 Epoch:		1
 License:	GPL v2
 Group:		Base
-Source0:	https://launchpad.net/apparmor/4.1/%{version}/+download/apparmor-%{version}.tar.gz
-# Source0-md5:	a7b85f6de1fc72d2a73da80722c5538e
+Source0:	https://gitlab.com/apparmor/apparmor/-/archive/v%{version}/apparmor-v%{version}.tar.gz
+# Source0-md5:	f2bba43c1631b7a3db6bd106d5a6fb33
 Patch0:		%{name}-pysetup.patch
 URL:		https://wiki.apparmor.net/
 BuildRequires:	gettext-tools
@@ -46,7 +46,7 @@ AppArmor files support for Vim.
 Obsługa plików AppArmor dla Vima.
 
 %prep
-%setup -q -n apparmor-%{version}
+%setup -q -n apparmor-v%{version}
 %patch -P0 -p1
 
 %{__sed} -i -e '1s, */usr/bin/env python,%{__python3},' utils/aa-*
@@ -67,6 +67,9 @@ au BufNewFile,BufRead /etc/apparmor.d/*,/etc/apparmor/profiles/* set filetype=ap
 EOF
 
 %find_lang %{name}
+# python utils use the 'apparmor' gettext domain, shell tools use 'apparmor-utils'
+%find_lang apparmor
+cat apparmor.lang >> %{name}.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
